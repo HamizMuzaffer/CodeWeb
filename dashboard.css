@@ -1,0 +1,66 @@
+
+@font-face {
+    font-family: fabersans;
+    src: url(./Assets/Fonts/FaberSans/FaberSansReduced75.ttf);
+}
+body{
+    background-color: #A6DAFF;
+}
+.main{
+
+    display: flex;
+    justify-content: center;
+    
+}
+
+.dashboard{
+width: 380px;
+height: 450px;
+background-color: white;
+border-radius: 15px;
+border: solid 2px black;
+margin-top: 15vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.imgHolder{
+    width: 90px;
+    height: 90px;
+    background-color: white;
+    margin-top: 50px;
+    border-radius: 100px;
+    margin-bottom: 30px;
+
+    
+
+}
+.profileImg{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 100px;
+}
+
+span{
+    font-size: large;
+    font-family: "Rubik", sans-serif;
+    /* border: solid 2px ; */
+    padding: 10px;
+    
+    
+
+}
+
+.icons{
+margin-right: 30px !important;
+
+
+}
+
+.UserName{
+ margin-top: 25px;
+ margin-right: 90px;
+}

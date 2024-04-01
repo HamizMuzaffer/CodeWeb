@@ -1,0 +1,42 @@
+@font-face {
+    font-family:Burchelli ;
+    src: url(./Assets/Fonts/Burchelli.otf);
+}
+@font-face {
+    font-family: fabersans;
+    src: url(./Assets/Fonts/FaberSans/FaberSansReduced75.ttf);
+}
+body{
+    background-color: #A6DAFF;
+}
+html{
+    scroll-behavior: smooth;
+}
+.Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 900px;
+
+}
+.Container h1{
+font-family:  Burchelli;
+text-align: center;
+font-size: 80px;
+color: #111827;
+padding: 40px;
+padding-bottom: 5px;
+padding-top: 0px;
+} 
+.Container  p{
+font-family: fabersans;
+text-align: center;
+
+font-size: 28px;
+font-weight: lighter;
+}
+.readBlogs{
+    min-height: 400px;
+    margin-top: 100px;
+}

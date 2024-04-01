@@ -1,0 +1,70 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+@font-face {
+    font-family: fabersans;
+    src: url(./Assets/Fonts/FaberSans/FaberSansReduced75.ttf);
+}
+body{
+    background-color: #A6DAFF;
+}
+.LandingImage{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.landingPage{
+width: 100%;
+height: 600px;
+display: flex;
+flex-direction: row;
+}
+.mainPic{
+    width: 50%;
+    height: auto;
+}
+.MainContent{
+    width: 50%;
+    background-color:#A6DAFF ;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'fabersans';
+}
+.MainContent h1{
+    font-family: 'fabersans';
+    color: #111827;
+    font-size: 6vw;
+    text-decoration: underline;
+}
+.MainContent p{
+    font-family: 'fabersans';
+    color: #111827;
+    font-size: large;
+    text-align: justify;
+    
+    
+}
+
+@media screen and (max-width: 768px) {
+   
+    .landingPage{
+        flex-direction: column;
+    }
+
+    .mainPic{
+        width: 100%;
+    }
+    .MainContent{
+        width: 100%;
+        text-align: left;
+    }
+}
