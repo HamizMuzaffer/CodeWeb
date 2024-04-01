@@ -264,18 +264,26 @@ async function displayBlogPosts() {
 
                     <div class = "flex justify-center items-center">
                     
-                    <button type="button" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:outline-none
+                    <button type="button" class="view-btn" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:outline-none
                     focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center
-                      me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Read More</button>
+                      me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-post-id="${doc.id}">Read More</button>
                       </div>
               </div>
             `;
+
       blogContainer.innerHTML += blogPostHTML;
       showBlogs.appendChild(blogContainer);
-
-
-
     });
+    
+    // Add event listeners for view buttons
+    const viewButtons = document.querySelectorAll('.view-btn');
+    viewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const postId = button.getAttribute('data-post-id');
+        window.location.href = `view-post.html?id=${postId}`;
+      });
+    });
+    
   } catch (error) {
     console.error("Error fetching documents:", error);
     if (error && error.message) {
