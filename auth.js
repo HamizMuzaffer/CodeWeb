@@ -322,5 +322,5 @@ editNewPicture.addEventListener("click", async (evt) => {
 }
 });
 
-//! Uploding and retrieving blog posts
+
 
