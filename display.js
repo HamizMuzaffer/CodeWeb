@@ -114,7 +114,8 @@ auth.onAuthStateChanged(function (user) {
 
 
 const blogForm = document.getElementById("blogForm")
-blogForm.addEventListener("submit", async (evt) => {
+
+blogForm && blogForm.addEventListener("submit", async (evt) => {
 
   evt.preventDefault();
 
@@ -235,7 +236,7 @@ async function displayBlogPosts() {
 
       const blogPostHTML = `
       
-                <div class="blog-post">
+                <div class="blog-post ">
                       <div class="h-20 w-full ">
                      
                     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
@@ -264,9 +265,9 @@ async function displayBlogPosts() {
 
                     <div class = "flex justify-center items-center">
                     
-                    <button type="button" class="view-btn" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:outline-none
+                    <button type="button" class=" view-btn text-white mt-0 bg-blue-700 hover:bg-blue-800 focus:outline-none
                     focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center
-                      me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-post-id="${doc.id}">Read More</button>
+                      me-2 mb-12 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-post-id="${doc.id}">Read More</button>
                       </div>
               </div>
             `;

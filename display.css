@@ -47,13 +47,14 @@ font-weight: lighter;
 }
 .blogContainer{
     width: 40vw;
-    height: 500px;
+    height: 60vh;
     background-color: white;
     margin-top: 60px;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
     padding: 20px;
+    border:  solid black 4px;
 }
 @media only screen and (max-width: 640px) {
     .blogContainer{
