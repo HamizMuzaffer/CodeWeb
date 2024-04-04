@@ -196,45 +196,19 @@ blogForm && blogForm.addEventListener("submit", async (evt) => {
 
 async function displayBlogPosts() {
   const showBlogs = document.getElementById("showBlogs");
+  
 
   try {
     const querySnapshot = await getDocs(collection(db, "blogPosts"));
     querySnapshot.forEach((doc) => {
       const data = doc.data();
 
-
-      const blogContainer = document.createElement("div")
-
-      // const postsTitle = document.createElement("h1");
-      // const postsContent = document.createElement("h4")
-      // const postsCategory = document.createElement("h4");
-      // const postsImage = document.createElement("img")
-
-
-
-
-
-      // postsTitle .setAttribute("class", "myTitle")
-      // postsContent.setAttribute("class", "blogText")
-      // postsCategory.setAttribute("class", "mycateg")
+      
+      const blogContainer = document.createElement("div");
       blogContainer.setAttribute("class", "blogContainer");
-      // postsImage.setAttribute("class","postsImage")
+  
 
-
-
-      // postsCategory.textContent = `-${data.Category}`;
-      // postsTitle.textContent = `${data.Title}`;
-      // postsContent.textContent = `${data.Content}`;
-      // postsImage.src = `${data.imageUrl}`;
-
-
-      // blogContainer.appendChild(postsTitle);
-      // blogContainer.appendChild(postsContent)
-      // blogContainer.appendChild(postsCategory);
-      // blogContainer.appendChild(postsImage);
-
-
-      const blogPostHTML = `
+      blogContainer.innerHTML= `
       
                 <div class="blog-post ">
                       <div class="h-20 w-full ">
@@ -272,7 +246,7 @@ async function displayBlogPosts() {
               </div>
             `;
 
-      blogContainer.innerHTML += blogPostHTML;
+      // blogContainer.innerHTML += blogPostHTML;
       showBlogs.appendChild(blogContainer);
     });
     

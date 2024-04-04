@@ -26,11 +26,22 @@ const firebaseConfig = {
   appId: "1:824611275683:web:6a1ccc6fc81ab6c7779016",
   measurementId: "G-9DHBPDKJYN"
 };
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
+  onAuthStateChanged,
+  signOut,
+  updateProfile
 
+} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-
+const auth = getAuth();
 
 
 
@@ -54,9 +65,9 @@ async function displayPostContent() {
     if (docSnapshot.exists()) {
       const postData = docSnapshot.data();
 
-     // Render post content in the DOM
-      const fetchUserPic = document.getElementById("userPicture");
-      fetchUserPic.src = postData.blogUserImage.imageUrl;
+      // Render post content in the DOM
+      // const fetchUserPic = document.getElementById("userPicture");
+      // fetchUserPic.src = postData.blogUserImage.imageUrl;
       mainContainer.innerHTML = `
       <div class=" w-full h-28 flex items-center">
       <div class="flex flex-row items-center ">
@@ -90,14 +101,67 @@ async function displayPostContent() {
   </div>
 
   <div>
-      <p class="text-black text-justify px-4 font-serif">${postData.Content}</p>
+      <p class="text-black text-justify px-4 font-sans">${postData.Content}</p>
   </div>
 
 
 
+  <div class="w-26 min-h-48 rounded-lg  mt-16 ">
+     
+          <form class="max-w-2xl bg-white rounded-lg border p-2 mx-auto mt-20 " id = "commentForm">
+          <div class="px-3 mb-2 mt-2 ">
+      <textarea placeholder="comment" class="w-full bg-gray-100 rounded border border-gray-400 leading-normal resize-none h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" id="comment"></textarea>
+       </div>
+       <div class="flex justify-end px-4 ">
+      <input type="submit" class="px-2.5 py-1.5 rounded-md text-white text-sm bg-blue-700 value="Comment">
+        </div>
+       </form>
+
+
+  </div>
             
          
             `;
+
+      const commentForm = document.getElementById("commentForm");
+
+      // Attach event listener to the comment form
+      commentForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        // Retrieve comment value from textarea
+        const commentTextarea = document.getElementById("comment");
+        const commentValue = commentTextarea.value;
+
+        // Log the comment value
+        console.log("Comment:", commentValue);
+
+        const currentUser = auth.currentUser;
+        const username = currentUser.displayName;
+        const imageUrl = currentUser.photoURL;
+
+        // Get the current timestamp
+
+
+        // Construct the comment object
+        const commentData = {
+          comment: commentValue,
+          username: username,
+          image: imageUrl,
+
+        };
+
+        try {
+          // Add the comment to Firestore
+          const commentRef = await addDoc(collection(db, 'comments'), commentData);
+          console.log("Comment added with ID: ", commentRef.id);
+
+          // Optionally, clear the textarea after submitting the comment
+          commentTextarea.value = '';
+        } catch (error) {
+          console.error("Error adding comment: ", error);
+        }
+      });
     } else {
       postContentDiv.innerHTML = '<p>Post not found</p>';
     }
@@ -112,12 +176,7 @@ function getPostIdFromUrl() {
   return urlParams.get('id');
 }
 
-// Call the function to display post content
+
 displayPostContent();
 
-{/* <h1 class=" text-4xl font-mono">${postData.Title}</h1>
-<p class = " text-l font-sans">${postData.Content}</p>
-</div>
-<div class = " w-full">              
-<img src="${postData.imageUrl}" alt="Post Image" class = "object-fill h-56 ">
-</div> */}
+
