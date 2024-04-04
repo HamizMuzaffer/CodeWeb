@@ -15,6 +15,7 @@ import {
   query,
   where,
   getDoc,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -106,68 +107,20 @@ async function displayPostContent() {
 
 
 
-  <div class="w-26 min-h-48 rounded-lg  mt-16 ">
-     
-          <form class="max-w-2xl bg-white rounded-lg border p-2 mx-auto mt-20 " id = "commentForm">
-          <div class="px-3 mb-2 mt-2 ">
-      <textarea placeholder="comment" class="w-full bg-gray-100 rounded border border-gray-400 leading-normal resize-none h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" id="comment"></textarea>
-       </div>
-       <div class="flex justify-end px-4 ">
-      <input type="submit" class="px-2.5 py-1.5 rounded-md text-white text-sm bg-blue-700 value="Comment">
-        </div>
-       </form>
-
-
-  </div>
+ 
             
          
             `;
 
-      const commentForm = document.getElementById("commentForm");
-
-      // Attach event listener to the comment form
-      commentForm.addEventListener("submit", async (event) => {
-        event.preventDefault(); // Prevent default form submission
-
-        // Retrieve comment value from textarea
-        const commentTextarea = document.getElementById("comment");
-        const commentValue = commentTextarea.value;
-
-        // Log the comment value
-        console.log("Comment:", commentValue);
-
-        const currentUser = auth.currentUser;
-        const username = currentUser.displayName;
-        const imageUrl = currentUser.photoURL;
-
-        // Get the current timestamp
-
-
-        // Construct the comment object
-        const commentData = {
-          comment: commentValue,
-          username: username,
-          image: imageUrl,
-
-        };
-
-        try {
-          // Add the comment to Firestore
-          const commentRef = await addDoc(collection(db, 'comments'), commentData);
-          console.log("Comment added with ID: ", commentRef.id);
-
-          // Optionally, clear the textarea after submitting the comment
-          commentTextarea.value = '';
-        } catch (error) {
-          console.error("Error adding comment: ", error);
-        }
-      });
     } else {
       postContentDiv.innerHTML = '<p>Post not found</p>';
     }
   } catch (error) {
     console.error('Error fetching post content:', error);
   }
+   
+
+
 }
 
 // Function to extract post ID from URL
@@ -176,7 +129,90 @@ function getPostIdFromUrl() {
   return urlParams.get('id');
 }
 
-
 displayPostContent();
+
+async function getComments(){
+  const commentForm = document.getElementById("commentForm");
+
+  // Attach event listener to the comment form
+  commentForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // Retrieve comment value from textarea
+    const commentTextarea = document.getElementById("comment");
+    const commentValue = commentTextarea.value;
+
+    // Log the comment value
+    console.log("Comment:", commentValue);
+
+    const currentUser = auth.currentUser;
+    const username = currentUser.displayName;
+    const imageUrl = currentUser.photoURL;
+
+    // Get the current timestamp
+
+
+    // Construct the comment object
+    const commentData = {
+      comment: commentValue,
+      username: username,
+      image: imageUrl,
+
+    };
+
+    try {
+      // Add the comment to Firestore
+      const commentRef = await addDoc(collection(db, 'comments'), commentData);
+      console.log("Comment added with ID: ", commentRef.id);
+
+      // Optionally, clear the textarea after submitting the comment
+      commentTextarea.value = '';
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    }
+  });
+
+  const commentsRef = collection(db, 'comments');
+
+  try {
+      // Retrieve all documents from the comments collection
+      const querySnapshot = await getDocs(commentsRef);
+      
+      // Loop through each document
+      querySnapshot.forEach((doc) => {
+          // Get the comment data
+          const commentData = doc.data();
+          
+          //  Display the comment in your application (e.g., append to a container)
+           const commentContainer = document.getElementById('commentContainer');
+           const commentElement = document.createElement('div');
+          commentElement.innerHTML = `
+            <div id="commentContainer"></div>
+            <div class="flex">
+                <button type="button"
+                    class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 h-10 w-10 mx:12 md:mx-10 my-4">
+                    <img class="w-full h-full rounded-full object-fill" src="${commentData.image}" alt="user photo"
+                        id="userPicture">
+                </button>
+                <span class="text-white my-6 mx-4">${commentData.username}</span>
+            </div>
+            <div>
+                <p class="text-white mx-10 my-2">${commentData.comment}</p>
+            </div>
+           `;
+           commentContainer.appendChild(commentElement);
+      });
+  } catch (error) {
+      console.error('Error fetching comments:', error);
+  }
+
+
+
+
+
+
+
+}
+getComments();
 
 
