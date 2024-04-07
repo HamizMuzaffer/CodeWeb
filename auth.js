@@ -1,6 +1,6 @@
 import {
   initializeApp,
-  
+
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import {
   getAnalytics
@@ -19,12 +19,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 import {
-   getStorage,
-   ref,
-   uploadBytes,
-   getDownloadURL
-  
-   } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-storage.js";
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+
+} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBN_VV_4Y_SgG6ZYMFVzBD3pYIOZax2R3g",
@@ -62,29 +62,29 @@ const creatuserbySignUp = (e) => {
   const signupPassword = document.getElementById("signupPassword").value;
 
   createUserWithEmailAndPassword(auth, signupEmail, signupPassword)
-  .then((userCredential) => {
+    .then((userCredential) => {
       // Signed up successfully
       const user = userCredential.user;
       console.log('User signed up:', user);
       // Update user profile with username
-      return updateProfile(auth.currentUser,{
-          displayName: signedUpUserName
-          
+      return updateProfile(auth.currentUser, {
+        displayName: signedUpUserName
+
 
       });
-  })
-  .then(() => {
+    })
+    .then(() => {
       // Profile updated successfully
       console.log('Username added to profile');
       // Redirect or perform any other actions
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       // Handle errors
       const errorCode = error.code;
       const errorMessage = error.message;
       console.error('Sign-up error:', errorMessage);
       // Display error message to the user
-  });
+    });
 
 }
 
@@ -153,8 +153,9 @@ const signinWithGoogle = () => {
 }
 
 const signinbyGoogle = document.getElementById("signinGoogle");
+const signupbyGoogle = document.getElementById("signupGoogle")
 signinbyGoogle && signinbyGoogle.addEventListener("click", signinWithGoogle)
-
+signupbyGoogle && signupbyGoogle.addEventListener("click", signinWithGoogle)
 // !Sign in with Github
 
 const signinwithGithub = () => {
@@ -180,7 +181,11 @@ const signinwithGithub = () => {
 }
 
 const signinbyGithub = document.getElementById("signinGithub");
-signinbyGithub && signinbyGithub.addEventListener("click", signinwithGithub)
+const signupbyGithub = document.getElementById("signupGithub");
+
+signinbyGithub && signinbyGithub.addEventListener("click", signinwithGithub);
+signupbyGithub && signupbyGithub.addEventListener("click", signinwithGithub);
+
 
 // !Authstate function to retrieve users info
 auth.onAuthStateChanged(function (user) {
@@ -192,7 +197,7 @@ auth.onAuthStateChanged(function (user) {
     var displayuserEmail = document.getElementById("loginuser-mail");
 
     // ?Getting User Info
-console.log(user)
+    console.log(user)
     // *UserName
 
     var displayName = user.displayName;
@@ -208,20 +213,20 @@ console.log(user)
 
     // *UserPicture
     var userImage = document.getElementById('userPicture');
-if(user.photoURL == null){
-  user.photoURL = "./Assets/Images/LoginUser.png"
-}
-else{
-  var userImageUrl = user.photoURL;
+    if (user.photoURL == null) {
+      user.photoURL = "./Assets/Images/LoginUser.png"
+    }
+    else {
+      var userImageUrl = user.photoURL;
 
-  userImage.src = userImageUrl;
-  console.log(userImageUrl)
-}
-   
+      userImage.src = userImageUrl;
+      console.log(userImageUrl)
+    }
+
 
     sessionStorage.setItem("userEmail", useremail);
     sessionStorage.setItem("username", displayName);
-    sessionStorage.setItem("userPhoto" , user.photoURL);
+    sessionStorage.setItem("userPhoto", user.photoURL);
 
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
@@ -255,10 +260,10 @@ signoutBtn && signoutBtn.addEventListener("click", signout)
 
 var storedemail = sessionStorage.getItem("userEmail");
 var storedusername = sessionStorage.getItem("username");
-var storedPhoto =  sessionStorage.getItem("userPhoto")
+var storedPhoto = sessionStorage.getItem("userPhoto")
 
 var dashboardemail = document.getElementById("userEmailDashboard");
-var dashboardusername =  document.getElementById("userNameDashboard");
+var dashboardusername = document.getElementById("userNameDashboard");
 var dashboardProfilePic = document.getElementById("dashboardProfilePic");
 
 dashboardemail.innerHTML = storedemail;
@@ -272,12 +277,12 @@ const getNewUserName = document.getElementById("getNewUserName");
 const editUserName = document.getElementById("editUserName");
 
 editUserName.addEventListener("click", (evt) => {
-    evt.preventDefault();
-    const updatedUsername = getNewUserName.value;
-    console.log(updatedUsername); 
+  evt.preventDefault();
+  const updatedUsername = getNewUserName.value;
+  console.log(updatedUsername);
 
-  updateProfile(auth.currentUser,{
-   displayName:updatedUsername
+  updateProfile(auth.currentUser, {
+    displayName: updatedUsername
   });
   location.reload();
 });
@@ -306,8 +311,8 @@ editNewPicture.addEventListener("click", async (evt) => {
     const photoURL = await getDownloadURL(snapshot.ref);
 
     // Update the user's profile with the new photoURL
-    await updateProfile(auth.currentUser,{
-        photoURL: photoURL
+    await updateProfile(auth.currentUser, {
+      photoURL: photoURL
     });
 
     // Profile updated successfully
@@ -315,11 +320,11 @@ editNewPicture.addEventListener("click", async (evt) => {
 
     // Reload the page to reflect the changes
     location.reload();
-} catch (error) {
+  } catch (error) {
     // Handle errors
     console.error('Error updating profile photo:', error.message);
     // Display error message to the user if needed
-}
+  }
 });
 
 

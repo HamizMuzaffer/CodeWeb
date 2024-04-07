@@ -210,7 +210,7 @@ async function displayBlogPosts() {
 
       blogContainer.innerHTML= `
       
-                <div class="blog-post ">
+                <div class="blog-post " id="blog">
                       <div class="h-20 w-full ">
                      
                     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
@@ -229,7 +229,7 @@ async function displayBlogPosts() {
                 
               
             
-                    <h2 class = "text-2xl font-bold px-2">${data.Title}</h2>
+                    <h2 class = "text-2xl font-bold px-2" id = "getBlog">${data.Title}</h2>
                     
                     
                    
@@ -274,6 +274,39 @@ displayBlogPosts();
 
 
 
+// Search Feature
 
+const searchInput = document.getElementById("default-search");
+
+
+
+searchInput.addEventListener("input", () => {
+  const inputValue = searchInput.value.toLowerCase();
+  const blogs = document.querySelectorAll(".blogContainer");
+
+
+  blogs.forEach(blog => {
+      const title = blog.querySelector("#getBlog").textContent.toLowerCase();
+      
+      const displayContainer = document.getElementById("container");
+      if (inputValue.trim() === '') {
+          displayContainer.style.display = "flex";
+      } else {
+          displayContainer.style.display = "none";
+      }
+
+
+
+      if (title.includes(inputValue)) {
+          blog.style.display = "block";
+        
+       
+      } else {
+          blog.style.display = "none";
+         
+      }
+  });
+
+});
 
 
