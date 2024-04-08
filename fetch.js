@@ -191,7 +191,7 @@ async function getComments(){
             <div class="flex">
                 <button type="button"
                     class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 h-10 w-10 mx:12 md:mx-10 my-4">
-                    <img class="w-full h-full rounded-full object-fill" src="${commentData.image}" alt="user photo"
+                    <img class="w-full h-full rounded-full object-contain" src="${commentData.image}" alt="user photo"
                         id="userPicture">
                 </button>
                 <span class="text-white my-6 mx-4">${commentData.username}</span>
