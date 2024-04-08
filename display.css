@@ -59,6 +59,7 @@ font-weight: lighter;
 @media only screen and (max-width: 640px) {
     .blogContainer{
         width: 100vw;
+        height: 90vh;
     }
 
   }
