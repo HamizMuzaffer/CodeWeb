@@ -35,6 +35,8 @@ const firebaseConfig = {
   appId: "1:824611275683:web:6a1ccc6fc81ab6c7779016",
   measurementId: "G-9DHBPDKJYN"
 };
+
+
 /* 
 ! Firebase Initialization 
 */
@@ -45,6 +47,13 @@ const storage = getStorage();
 const storageRef = ref(storage, 'users/')
 const provider = new GoogleAuthProvider();
 const newprovider = new GithubAuthProvider();
+
+
+
+
+
+
+
 /* 
 ! SignUp Form References 
 */
@@ -52,6 +61,11 @@ const signupForm = document.getElementById("signupForm");
 const signupEmail = document.getElementById("signupEmail");
 const forgotPassword = document.getElementById("forgotPass");
 const defaultPhotoURL = './Assets/Images/LoginUser.png';
+
+
+
+
+
 // !Creating User by signing up through mail and password
 
 const creatuserbySignUp = (e) => {
@@ -65,7 +79,6 @@ const creatuserbySignUp = (e) => {
     .then((userCredential) => {
       // Signed up successfully
       const user = userCredential.user;
-      console.log('User signed up:', user);
       // Update user profile with username
       return updateProfile(auth.currentUser, {
         displayName: signedUpUserName
@@ -77,6 +90,7 @@ const creatuserbySignUp = (e) => {
       // Profile updated successfully
       console.log('Username added to profile');
       // Redirect or perform any other actions
+      location.reload();
     })
     .catch((error) => {
       // Handle errors
@@ -89,6 +103,7 @@ const creatuserbySignUp = (e) => {
 }
 
 signupForm && signupForm.addEventListener("submit", creatuserbySignUp);
+
 
 
 
@@ -126,6 +141,8 @@ signInForm && signInForm.addEventListener("submit", (e) => {
 });
 
 
+
+
 // !Sign In With Goggle
 
 const signinWithGoogle = () => {
@@ -156,6 +173,14 @@ const signinbyGoogle = document.getElementById("signinGoogle");
 const signupbyGoogle = document.getElementById("signupGoogle")
 signinbyGoogle && signinbyGoogle.addEventListener("click", signinWithGoogle)
 signupbyGoogle && signupbyGoogle.addEventListener("click", signinWithGoogle)
+
+
+
+
+
+
+
+
 // !Sign in with Github
 
 const signinwithGithub = () => {
@@ -185,6 +210,8 @@ const signupbyGithub = document.getElementById("signupGithub");
 
 signinbyGithub && signinbyGithub.addEventListener("click", signinwithGithub);
 signupbyGithub && signupbyGithub.addEventListener("click", signinwithGithub);
+
+
 
 
 // !Authstate function to retrieve users info

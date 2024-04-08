@@ -59,6 +59,7 @@ const storage = getStorage();
 const storageRef = ref(storage, 'users/')
 const db = getFirestore(app);
 
+
 // !Authstate function to retrieve users info
 auth.onAuthStateChanged(function (user) {
   if (user) {
@@ -112,6 +113,7 @@ auth.onAuthStateChanged(function (user) {
 });
 
 
+//! Getting Blog Input and storing it in Firebase 
 
 const blogForm = document.getElementById("blogForm")
 
@@ -127,7 +129,6 @@ blogForm && blogForm.addEventListener("submit", async (evt) => {
 
 
   try {
-    // Upload the image to Firebase Storage (if needed) and get the download URL
 
 
     //  let userImageUrl = user.photoURL;
@@ -175,19 +176,12 @@ blogForm && blogForm.addEventListener("submit", async (evt) => {
     document.getElementById("blogForm").reset();
     console.log("Blog data added to Firestore successfully!");
 
-    // Optionally, redirect to another page or show a success message
+   
   } catch (error) {
     console.error("Error adding blog data to Firestore:", error);
-    // Handle errors, show error message, etc.
-  }
+     }
 
 });
-
-
-
-
-
-
 
 
 
@@ -267,14 +261,14 @@ async function displayBlogPosts() {
   }
 }
 
-// Call the function to display blog posts
+//! Call the function to display blog posts
 displayBlogPosts();
 
 
 
 
 
-// Search Feature
+//! Searching Blogs from Display Page 
 
 const searchInput = document.getElementById("default-search");
 

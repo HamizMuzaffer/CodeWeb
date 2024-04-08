@@ -40,6 +40,9 @@ import {
 
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
+
+//! Fireabase Initialization
+
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const auth = getAuth();
@@ -56,7 +59,7 @@ const auth = getAuth();
 
 
 
-// Function to fetch and display post content
+//! Function to fetch and display post content
 async function displayPostContent() {
   const postId = getPostIdFromUrl();
   const mainContainer = document.getElementById('mainContainer');
@@ -123,13 +126,19 @@ async function displayPostContent() {
 
 }
 
-// Function to extract post ID from URL
+//! Function to extract post ID from URL
+
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('id');
 }
 
 displayPostContent();
+
+
+
+
+//! Comment Feature on User's Post
 
 async function getComments(){
   const commentForm = document.getElementById("commentForm");
